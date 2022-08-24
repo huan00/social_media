@@ -8,7 +8,9 @@ const NavBar = () => {
   return (
     <AppBar sx={styles.appBar} position="static" color="inherit">
       <Box sx={styles.brandContainer}>
-        <Typography variant="h4">Hz Media</Typography>
+        <Typography color="error" variant="h4">
+          Hz Media
+        </Typography>
         <img src={logo} alt="logo" style={{ width: '50px' }} />
       </Box>
       <Box sx={styles.loginStatus}>
