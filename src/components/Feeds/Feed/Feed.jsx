@@ -31,12 +31,26 @@ const Feed = () => {
         title="My feed status"
         subheader="hungry"
       />
-      <CardMedia
-        component="img"
-        height="195"
-        image="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?cs=srgb&dl=pexels-ash-376464.jpg&fm=jpg"
-        alt="pancakes"
-      />
+      <div style={{ position: 'relative' }}>
+        <CardMedia
+          component="img"
+          height="195"
+          image="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?cs=srgb&dl=pexels-ash-376464.jpg&fm=jpg"
+          alt="pancakes"
+        />
+        <Typography
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            color: 'white',
+            padding: 1
+          }}
+          variant="body2"
+        >
+          time
+        </Typography>
+      </div>
       <CardContent>
         <Typography variant="body2">
           That is one good looking stack of pancakes
@@ -49,7 +63,9 @@ const Feed = () => {
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderTop: '1px solid blue'
+          borderTop: '1px solid blue',
+          p: 0
+          // '& .ChildSelector .NestedChildSelector': { paddingBottom: 0 }
         }}
       >
         <CardActions>
@@ -60,7 +76,12 @@ const Feed = () => {
             </Typography>
           </IconButton>
         </CardActions>
-        <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row'
+          }}
+        >
           <Typography variant="subtitle2" sx={{ mx: 1 }}>
             #tags
           </Typography>
