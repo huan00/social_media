@@ -57,15 +57,13 @@ const Feed = () => {
         </Typography>
       </CardContent>
 
-      <CardContent
+      <CardActions
         sx={{
           display: 'flex',
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-          borderTop: '1px solid blue',
           p: 0
-          // '& .ChildSelector .NestedChildSelector': { paddingBottom: 0 }
         }}
       >
         <CardActions>
@@ -86,7 +84,7 @@ const Feed = () => {
             #tags
           </Typography>
         </Box>
-      </CardContent>
+      </CardActions>
     </Card>
   )
 }

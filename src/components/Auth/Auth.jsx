@@ -4,18 +4,45 @@ import {
   Typography,
   Button,
   Grid,
-  Container,
-  Input
+  Container
 } from '@mui/material'
 import { useState } from 'react'
 import { FaUserCircle } from 'react-icons/fa'
 import { GoogleLogin } from '@react-oauth/google'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { signUp, signIn } from '../../actions/auth'
+
+const initialState = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: ''
+}
 
 const Auth = () => {
-  const [isSignup, setIsSignup] = useState(true)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const [isSignup, setIsSignup] = useState(false)
+  const [inputData, setInputData] = useState(initialState)
 
   const switchMode = () => {
     setIsSignup((prev) => !prev)
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if (!isSignup) {
+      dispatch(signIn(inputData, navigate))
+    } else {
+      dispatch(signUp(inputData, navigate))
+    }
+  }
+
+  const handleChange = (e) => {
+    setInputData({ ...inputData, [e.target.name]: e.target.value })
   }
 
   return (
@@ -23,8 +50,8 @@ const Auth = () => {
       <Paper elevation={5} sx={{ height: 'fit-content' }}>
         <FaUserCircle fontSize={36} color="red" style={{ paddingTop: 20 }} />
         <Typography variant="h6">{isSignup ? 'Sign In' : 'Sign Up'}</Typography>
-        <form style={{ padding: 10 }}>
-          <Grid spacing={2}>
+        <form style={{ padding: 10 }} onSubmit={handleSubmit}>
+          <Grid container>
             {isSignup && (
               <div
                 style={{
@@ -34,8 +61,17 @@ const Auth = () => {
                   margin: '12px 0'
                 }}
               >
-                <TextField name="firstName" label="First Name" autoFocus half />
-                <TextField name="lastName" label="Last Name" half />
+                <TextField
+                  name="firstName"
+                  label="First Name"
+                  autoFocus
+                  onChange={handleChange}
+                />
+                <TextField
+                  name="lastName"
+                  label="Last Name"
+                  onChange={handleChange}
+                />
               </div>
             )}
             <TextField
@@ -45,6 +81,7 @@ const Auth = () => {
               name="email"
               fullWidth
               required
+              onChange={handleChange}
             />
             <TextField
               type="password"
@@ -54,6 +91,7 @@ const Auth = () => {
               fullWidth
               required
               sx={{ my: 2 }}
+              onChange={handleChange}
             />
             {isSignup && (
               <TextField
@@ -63,16 +101,12 @@ const Auth = () => {
                 name="confirmPassword"
                 fullWidth
                 sx={{ mb: 2 }}
+                onChange={handleChange}
               />
             )}
           </Grid>
-          <Button
-            variant="contained"
-            fullWidth
-            onClick={() => {}}
-            sx={{ mb: 2 }}
-          >
-            {isSignup ? 'Sign In' : 'Sign Up'}
+          <Button type="submit" variant="contained" fullWidth sx={{ mb: 2 }}>
+            {!isSignup ? 'Sign In' : 'Sign Up'}
           </Button>
 
           <GoogleLogin
@@ -82,7 +116,7 @@ const Auth = () => {
           <Grid container justifyContent={'flex-end'}>
             <Grid item xs={10}>
               <Button onClick={switchMode}>
-                {isSignup
+                {!isSignup
                   ? "Don't have an account? Sign Up"
                   : 'Already have an account? Sign In'}
               </Button>

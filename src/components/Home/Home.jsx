@@ -1,6 +1,6 @@
 import { Container } from '@mui/material'
 import React from 'react'
-import Auth from '../Auth/Auth'
+
 import Feed from '../Feeds/Feed/Feed'
 import Form from '../Form/Form'
 
@@ -16,7 +16,6 @@ const Home = () => {
     >
       <Feed />
       <Form />
-      <Auth />
     </Container>
   )
 }
