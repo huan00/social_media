@@ -61,8 +61,17 @@ const NavBar = () => {
                 width: '130px'
               }}
             >
-              <Avatar alt={profile.data.name} src={profile.data.picture} />
-              <Typography>{`${profile.data.firstName} ${profile.data.lastName}`}</Typography>
+              <Avatar
+                alt={profile.name ? profile.name : profile.data.firstName}
+                src={profile?.picture}
+              >
+                {profile?.data?.firstName.charAt(0)}
+              </Avatar>
+              <Typography>
+                {profile.name
+                  ? profile.name
+                  : `${profile.data.firstName} ${profile.data.lastName}`}
+              </Typography>
             </div>
             <Button
               component={Link}
