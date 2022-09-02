@@ -14,13 +14,14 @@ import { BiDotsVertical } from 'react-icons/bi'
 import { AiOutlineHeart } from 'react-icons/ai'
 import { Box } from '@mui/system'
 
-const Feed = () => {
+const Feed = ({ post }) => {
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, height: 'fit-content', m: 1 }}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="post">
-            Hz
+            {post?.name?.split(' ')[0].charAt(0)}
+            {post?.name?.split(' ')[1].charAt(0)}
           </Avatar>
         }
         action={

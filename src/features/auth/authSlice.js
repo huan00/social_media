@@ -14,6 +14,7 @@ export const authSlice = createSlice({
     },
     removeProfile: (state) => {
       localStorage.clear()
+
       return { ...state, authData: null }
     }
   }

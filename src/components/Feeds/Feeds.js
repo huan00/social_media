@@ -1,0 +1,21 @@
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchPost } from '../../actions/post'
+import Feed from './Feed/Feed'
+
+const Feeds = () => {
+  const dispatch = useDispatch()
+  const { posts } = useSelector((state) => state.post)
+
+  useEffect(() => {
+    dispatch(fetchPost())
+  }, [])
+  console.log(posts)
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      {posts && posts.map((post) => <Feed post={post} key={post._id} />)}
+    </div>
+  )
+}
+
+export default Feeds

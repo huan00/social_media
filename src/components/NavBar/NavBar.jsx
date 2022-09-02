@@ -33,8 +33,6 @@ const NavBar = () => {
     setProfile(null)
   }
 
-  console.log(profile)
-
   return (
     <AppBar sx={styles.appBar} position="static" color="inherit">
       <Box sx={styles.brandContainer}>

@@ -1,10 +1,14 @@
 import { Container } from '@mui/material'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import Feed from '../Feeds/Feed/Feed'
+import Feeds from '../Feeds/Feeds'
 import Form from '../Form/Form'
 
 const Home = () => {
+  const [profile, setProfile] = useState(
+    JSON.parse(localStorage.getItem('profile'))
+  )
+
   return (
     <Container
       sx={{
@@ -14,8 +18,8 @@ const Home = () => {
         flexWrap: 'wrap'
       }}
     >
-      <Feed />
-      <Form />
+      <Feeds />
+      <Form profile={profile} />
     </Container>
   )
 }
