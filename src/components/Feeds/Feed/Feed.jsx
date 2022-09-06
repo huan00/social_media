@@ -12,11 +12,16 @@ import {
 import { red } from '@mui/material/colors'
 import { BiDotsVertical } from 'react-icons/bi'
 import { AiOutlineHeart } from 'react-icons/ai'
+import moment from 'moment'
 import { Box } from '@mui/system'
 
 const Feed = ({ post }) => {
   return (
-    <Card sx={{ maxWidth: 345, height: 'fit-content', m: 1 }}>
+    <Card
+      sx={{ minWidth: 300, maxWidth: 345, height: 'fit-content', m: 1 }}
+      raised
+      elevation={6}
+    >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="post">
@@ -29,15 +34,14 @@ const Feed = ({ post }) => {
             <BiDotsVertical />
           </IconButton>
         }
-        title="My feed status"
-        subheader="hungry"
+        title={post.title}
       />
       <div style={{ position: 'relative' }}>
         <CardMedia
           component="img"
           height="195"
-          image="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?cs=srgb&dl=pexels-ash-376464.jpg&fm=jpg"
-          alt="pancakes"
+          image={post.selectedFile}
+          alt={post.title}
         />
         <Typography
           sx={{
@@ -49,13 +53,11 @@ const Feed = ({ post }) => {
           }}
           variant="body2"
         >
-          time
+          {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
       <CardContent>
-        <Typography variant="body2">
-          That is one good looking stack of pancakes
-        </Typography>
+        <Typography variant="body2">{post.message}</Typography>
       </CardContent>
 
       <CardActions
@@ -71,19 +73,22 @@ const Feed = ({ post }) => {
           <IconButton aria-label="likes">
             <AiOutlineHeart />
             <Typography variant="body1" sx={{ ml: 1 }}>
-              0
+              {post.likes > 0 ? post.likes : 0}
             </Typography>
           </IconButton>
         </CardActions>
         <Box
           sx={{
             display: 'flex',
-            flexDirection: 'row'
+            flexDirection: 'row',
+            flexWrap: 'wrap'
           }}
         >
-          <Typography variant="subtitle2" sx={{ mx: 1 }}>
-            #tags
-          </Typography>
+          {post?.tags.map((tag) => (
+            <Typography variant="subtitle2" sx={{ mx: 1 }}>
+              {`#${tag}`}
+            </Typography>
+          ))}
         </Box>
       </CardActions>
     </Card>

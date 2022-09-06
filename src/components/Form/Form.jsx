@@ -15,7 +15,7 @@ const Form = ({ profile }) => {
     selectedFile: ''
   })
 
-  console.log(profile)
+  console.log(formInput)
 
   const handleInput = (e) => {
     setFormInput({ ...formInput, [e.target.name]: e.target.value })
@@ -32,6 +32,7 @@ const Form = ({ profile }) => {
         navigate
       )
     )
+    setFormInput({ title: '', message: '', tags: '', selectedFile: '' })
   }
 
   return (
@@ -80,6 +81,7 @@ const Form = ({ profile }) => {
             />
             <TextField
               name="message"
+              sx={{ my: 1 }}
               variant="outlined"
               label="message"
               fullWidth
@@ -92,7 +94,9 @@ const Form = ({ profile }) => {
               label="tags"
               fullWidth
               value={formInput.tags}
-              onChange={handleInput}
+              onChange={(e) =>
+                setFormInput({ ...formInput, tags: e.target.value.split(',') })
+              }
             />
             <div
               style={{
@@ -103,10 +107,10 @@ const Form = ({ profile }) => {
               }}
             >
               <FileBase
-                name="selectedFile"
+                // name="selectedFile"
                 type="file"
                 multiple={false}
-                onDone={(base64) => {
+                onDone={({ base64 }) => {
                   setFormInput({ ...formInput, selectedFile: base64 })
                 }}
               />

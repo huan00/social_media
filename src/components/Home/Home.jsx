@@ -14,11 +14,12 @@ const Home = () => {
       sx={{
         mt: 2,
         display: 'flex',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap'
+        justifyContent: 'space-between'
       }}
     >
-      <Feeds />
+      <div>
+        <Feeds />
+      </div>
       <Form profile={profile} />
     </Container>
   )
