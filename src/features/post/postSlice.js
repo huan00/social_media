@@ -21,10 +21,17 @@ export const postSlice = createSlice({
           post._id === action.payload._id ? action.payload : post
         )
       }
+    },
+    deleteAPost: (state, action) => {
+      console.log(action.payload)
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post._id !== action.payload)
+      }
     }
   }
 })
 
-export const { newPost, getPosts, like } = postSlice.actions
+export const { newPost, getPosts, like, deleteAPost } = postSlice.actions
 
 export default postSlice.reducer

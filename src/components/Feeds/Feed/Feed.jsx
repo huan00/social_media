@@ -7,7 +7,9 @@ import {
   CardMedia,
   CardContent,
   Typography,
-  CardActions
+  CardActions,
+  MenuItem,
+  Menu
 } from '@mui/material'
 import { red } from '@mui/material/colors'
 import { BiDotsVertical } from 'react-icons/bi'
@@ -16,7 +18,7 @@ import moment from 'moment'
 import { Box } from '@mui/system'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { likePost } from '../../../actions/post'
+import { likePost, deletePost } from '../../../actions/post'
 
 const Feed = ({ post }) => {
   const dispatch = useDispatch()
@@ -24,6 +26,7 @@ const Feed = ({ post }) => {
   const userId = user?.data.sub || user?.data._id
   const [likes, setLikes] = useState(post?.likes)
   const likedPost = likes.find((like) => like === userId)
+  const [anchorEl, setAnchorEl] = useState(null)
 
   const LikeCounts = () => {
     if (likes.length > 0) {
@@ -53,6 +56,18 @@ const Feed = ({ post }) => {
     }
   }
 
+  const openMenu = (e) => {
+    if (anchorEl) {
+      setAnchorEl(null)
+    } else {
+      setAnchorEl(e.currentTarget)
+    }
+  }
+
+  const handleDelete = () => {
+    dispatch(deletePost(post._id))
+  }
+
   return (
     <Card sx={{ width: 300, height: '100%', m: 1 }} raised elevation={6}>
       <CardHeader
@@ -63,8 +78,17 @@ const Feed = ({ post }) => {
           </Avatar>
         }
         action={
-          <IconButton color="secondary" aria-label="setting">
+          <IconButton color="secondary" aria-label="setting" onClick={openMenu}>
             <BiDotsVertical />
+            <Menu
+              id="update-delete"
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={() => setAnchorEl(null)}
+            >
+              <MenuItem onClick={() => {}}>Update</MenuItem>
+              <MenuItem onClick={handleDelete}>Delete</MenuItem>
+            </Menu>
           </IconButton>
         }
         title={post.title}

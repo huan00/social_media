@@ -1,5 +1,10 @@
 import * as api from '../api'
-import { newPost, getPosts, like } from '../features/post/postSlice'
+import {
+  newPost,
+  getPosts,
+  like,
+  deleteAPost
+} from '../features/post/postSlice'
 
 export const createPost = (post, navigate) => async (dispatch) => {
   try {
@@ -23,5 +28,16 @@ export const likePost = (id) => async (dispatch) => {
   try {
     const { data } = await api.likePost(id)
     dispatch(like(data))
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.deletePost(id)
+    dispatch(deleteAPost(id))
+  } catch (error) {
+    console.log(error)
+  }
 }
