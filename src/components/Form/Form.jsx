@@ -2,18 +2,12 @@ import { Button, Paper, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import FileBase from 'react-file-base64'
 import { useDispatch } from 'react-redux'
-import { createPost } from '../../actions/post'
+import { createPost, updatePost } from '../../actions/post'
 import { useNavigate } from 'react-router-dom'
 
-const Form = ({ profile }) => {
+const Form = ({ profile, formInput, setFormInput }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const [formInput, setFormInput] = useState({
-    title: '',
-    message: '',
-    tags: '',
-    selectedFile: ''
-  })
 
   const handleInput = (e) => {
     setFormInput({ ...formInput, [e.target.name]: e.target.value })
@@ -21,15 +15,19 @@ const Form = ({ profile }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    dispatch(
-      createPost(
-        {
-          ...formInput,
-          name: `${profile?.data?.firstName} ${profile?.data?.lastName} `
-        },
-        navigate
+    if (formInput._id) {
+      dispatch(updatePost(formInput))
+    } else {
+      dispatch(
+        createPost(
+          {
+            ...formInput,
+            name: `${profile?.data?.firstName} ${profile?.data?.lastName} `
+          },
+          navigate
+        )
       )
-    )
+    }
     setFormInput({ title: '', message: '', tags: '', selectedFile: '' })
   }
 

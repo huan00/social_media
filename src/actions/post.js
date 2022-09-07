@@ -3,7 +3,8 @@ import {
   newPost,
   getPosts,
   like,
-  deleteAPost
+  deleteAPost,
+  updateAPost
 } from '../features/post/postSlice'
 
 export const createPost = (post, navigate) => async (dispatch) => {
@@ -37,6 +38,15 @@ export const deletePost = (id) => async (dispatch) => {
   try {
     await api.deletePost(id)
     dispatch(deleteAPost(id))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updatePost = (post) => async (dispatch) => {
+  try {
+    const { data } = await api.updatePost(post)
+    dispatch(updateAPost(data))
   } catch (error) {
     console.log(error)
   }

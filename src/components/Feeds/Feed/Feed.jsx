@@ -13,14 +13,15 @@ import {
 } from '@mui/material'
 import { red } from '@mui/material/colors'
 import { BiDotsVertical } from 'react-icons/bi'
-import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
+import { AiOutlineHeart, AiFillHeart, AiOutlineEdit } from 'react-icons/ai'
+import { BiTrash } from 'react-icons/bi'
 import moment from 'moment'
 import { Box } from '@mui/system'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { likePost, deletePost } from '../../../actions/post'
 
-const Feed = ({ post }) => {
+const Feed = ({ post, handleUpdate }) => {
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('profile'))
   const userId = user?.data.sub || user?.data._id
@@ -48,6 +49,9 @@ const Feed = ({ post }) => {
   }
 
   const handleLikes = () => {
+    if (!user) {
+      return
+    }
     dispatch(likePost(post._id))
     if (likedPost) {
       setLikes(likes.filter((id) => id !== userId))
@@ -86,8 +90,14 @@ const Feed = ({ post }) => {
               open={Boolean(anchorEl)}
               onClose={() => setAnchorEl(null)}
             >
-              <MenuItem onClick={() => {}}>Update</MenuItem>
-              <MenuItem onClick={handleDelete}>Delete</MenuItem>
+              <MenuItem onClick={() => handleUpdate(post._id)}>
+                <AiOutlineEdit />
+                Update
+              </MenuItem>
+              <MenuItem onClick={handleDelete}>
+                <BiTrash />
+                Delete
+              </MenuItem>
             </Menu>
           </IconButton>
         }
