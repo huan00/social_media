@@ -5,7 +5,7 @@ const API = axios.create({
 })
 
 API.interceptors.request.use((req) => {
-  if (localStorage.getItem('user')) {
+  if (localStorage.getItem('profile')) {
     req.headers.Authorization = `Bearer ${
       JSON.parse(localStorage.getItem('profile')).token
     }`
@@ -18,3 +18,4 @@ export const signIn = (data) => API.post(`user/signin`, data)
 
 export const createPost = (post) => API.post('post/', post)
 export const getPosts = () => API.get('post/')
+export const likePost = (id) => API.put(`post/${id}/likepost`)

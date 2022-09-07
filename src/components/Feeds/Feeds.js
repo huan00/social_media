@@ -10,7 +10,7 @@ const Feeds = () => {
   useEffect(() => {
     dispatch(fetchPost())
   }, [])
-  console.log(posts)
+
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {posts && posts.map((post) => <Feed post={post} key={post._id} />)}

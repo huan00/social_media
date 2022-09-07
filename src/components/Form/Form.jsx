@@ -15,8 +15,6 @@ const Form = ({ profile }) => {
     selectedFile: ''
   })
 
-  console.log(formInput)
-
   const handleInput = (e) => {
     setFormInput({ ...formInput, [e.target.name]: e.target.value })
   }

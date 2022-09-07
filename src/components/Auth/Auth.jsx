@@ -56,7 +56,7 @@ const Auth = () => {
     const token = res.credential
 
     try {
-      dispatch(login(data, token))
+      dispatch(login({ data, token }))
       navigate('/')
     } catch (error) {
       console.log(error)

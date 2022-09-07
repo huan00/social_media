@@ -4,7 +4,6 @@ import { login } from '../features/auth/authSlice'
 
 export const signUp = (inputData, history) => async (dispatch) => {
   try {
-    console.log(inputData)
     const { data } = await api.signUp(inputData)
     dispatch({ type: AUTH, data })
   } catch (error) {

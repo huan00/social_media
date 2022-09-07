@@ -63,11 +63,11 @@ const NavBar = () => {
                 alt={profile.name ? profile.name : profile.data.firstName}
                 src={profile?.picture}
               >
-                {profile?.data?.firstName.charAt(0)}
+                {profile?.data?.firstName?.charAt(0)}
               </Avatar>
               <Typography>
-                {profile.name
-                  ? profile.name
+                {profile?.data?.name
+                  ? profile?.data?.name
                   : `${profile.data.firstName} ${profile.data.lastName}`}
               </Typography>
             </div>
