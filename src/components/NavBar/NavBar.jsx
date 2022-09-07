@@ -60,7 +60,7 @@ const NavBar = () => {
               }}
             >
               <Avatar
-                alt={profile.name ? profile.name : profile.data.firstName}
+                alt={profile?.name ? profile?.name : profile?.data?.firstName}
                 src={profile?.picture}
               >
                 {profile?.data?.firstName?.charAt(0)}
@@ -68,7 +68,7 @@ const NavBar = () => {
               <Typography>
                 {profile?.data?.name
                   ? profile?.data?.name
-                  : `${profile.data.firstName} ${profile.data.lastName}`}
+                  : `${profile?.data?.firstName} ${profile?.data?.lastName}`}
               </Typography>
             </div>
             <Button

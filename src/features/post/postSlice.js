@@ -35,11 +35,23 @@ export const postSlice = createSlice({
           post._id === action.payload._id ? action.payload : post
         )
       }
+    },
+    searchedPosts: (state, action) => {
+      return {
+        ...state,
+        posts: action.payload
+      }
     }
   }
 })
 
-export const { newPost, getPosts, like, deleteAPost, updateAPost } =
-  postSlice.actions
+export const {
+  newPost,
+  getPosts,
+  like,
+  deleteAPost,
+  updateAPost,
+  searchedPosts
+} = postSlice.actions
 
 export default postSlice.reducer

@@ -109,6 +109,7 @@ const Feed = ({ post, handleUpdate }) => {
           height="195"
           image={post.selectedFile}
           alt={post.title}
+          sx={{ objectFit: 'contain', backgroundColor: '#ccc' }}
         />
         <Typography
           sx={{

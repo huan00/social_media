@@ -4,7 +4,8 @@ import {
   getPosts,
   like,
   deleteAPost,
-  updateAPost
+  updateAPost,
+  searchedPosts
 } from '../features/post/postSlice'
 
 export const createPost = (post, navigate) => async (dispatch) => {
@@ -47,6 +48,15 @@ export const updatePost = (post) => async (dispatch) => {
   try {
     const { data } = await api.updatePost(post)
     dispatch(updateAPost(data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const getSearchedPosts = (search) => async (dispatch) => {
+  try {
+    const { data } = await api.getSearchedPosts(search)
+    dispatch(searchedPosts(data))
   } catch (error) {
     console.log(error)
   }

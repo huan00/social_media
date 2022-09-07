@@ -21,3 +21,7 @@ export const getPosts = () => API.get('post/')
 export const likePost = (id) => API.put(`post/${id}/likepost`)
 export const deletePost = (id) => API.delete(`post/${id}/deletepost`)
 export const updatePost = (post) => API.put(`post/${post._id}/updatepost`, post)
+export const getSearchedPosts = (search) =>
+  API.get(
+    `/post/search?searchQuery=${search.feed || 'none'}&tags=${search.tags}`
+  )

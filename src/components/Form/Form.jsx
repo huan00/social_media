@@ -2,12 +2,17 @@ import { Button, Paper, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import FileBase from 'react-file-base64'
 import { useDispatch } from 'react-redux'
-import { createPost, updatePost } from '../../actions/post'
+import { createPost, updatePost, getSearchedPosts } from '../../actions/post'
 import { useNavigate } from 'react-router-dom'
+import ChipInput from 'material-ui-chip-input'
 
 const Form = ({ profile, formInput, setFormInput }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [search, setSearch] = useState({
+    feed: '',
+    tags: []
+  })
 
   const handleInput = (e) => {
     setFormInput({ ...formInput, [e.target.name]: e.target.value })
@@ -31,27 +36,60 @@ const Form = ({ profile, formInput, setFormInput }) => {
     setFormInput({ title: '', message: '', tags: '', selectedFile: '' })
   }
 
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if (search.feed.trim() || search.tags) {
+      const searchData = { ...search, tags: search.tags.join(',') }
+      dispatch(getSearchedPosts(searchData))
+      navigate(
+        `/post/search?searchQuery=${
+          search.feed || 'none'
+        }&tags=${search.tags.join(',')}`
+      )
+    }
+    setSearch({
+      feed: '',
+      tags: []
+    })
+  }
+
+  const handleDelete = (deleteTag) => {
+    setSearch({
+      ...search,
+      tags: search.tags.filter((tag) => tag !== deleteTag)
+    })
+  }
+
   return (
     <div>
       <Paper elevation={6} sx={{ width: 350, height: 'fit-content' }}>
-        <form autoComplete="off" style={{ padding: 15 }}>
+        <form
+          autoComplete="off"
+          style={{ padding: 15 }}
+          onSubmit={handleSearch}
+        >
           {/* <Typography>Search Feed</Typography> */}
           <TextField
-            name=""
             variant="outlined"
             label="Search Feed"
             fullWidth
+            value={search.feed}
             sx={{}}
+            onChange={(e) => setSearch({ ...search, feed: e.target.value })}
           />
           {/* <Typography>Search Tags</Typography> */}
-          <TextField
-            name=""
+          <ChipInput
+            value={search.tags}
             variant="outlined"
             label="Search Tags"
             fullWidth
-            sx={{ my: 1 }}
+            style={{ margin: '8px 0' }}
+            onAdd={(tag) =>
+              setSearch({ ...search, tags: [...search.tags, tag] })
+            }
+            onDelete={handleDelete}
           />
-          <Button variant="contained" fullWidth>
+          <Button type="submit" variant="contained" fullWidth>
             SEARCH
           </Button>
         </form>
