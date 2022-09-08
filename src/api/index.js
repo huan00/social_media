@@ -26,3 +26,5 @@ export const getSearchedPosts = (search) =>
   API.get(
     `/post/search?searchQuery=${search.feed || 'none'}&tags=${search.tags}`
   )
+export const submitComment = (comment, id) =>
+  API.post(`/post/${id}/comment`, { comment })

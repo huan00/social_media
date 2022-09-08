@@ -47,6 +47,14 @@ export const postSlice = createSlice({
         ...state,
         posts: action.payload
       }
+    },
+    postComment: (state, action) => {
+      return {
+        ...state,
+        posts: state.posts.map((post) =>
+          post._id === action.payload._id ? action.payload : post
+        )
+      }
     }
   }
 })
@@ -58,7 +66,7 @@ export const {
   deleteAPost,
   updateAPost,
   searchedPosts,
-
+  postComment,
   filterMyPosts
 } = postSlice.actions
 

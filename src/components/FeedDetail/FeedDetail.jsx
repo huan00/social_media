@@ -12,15 +12,13 @@ const FeedDetail = () => {
     state.post.posts.filter((post) => post._id === id)
   )
 
-  console.log(post)
-
   return (
     <div style={{ marginTop: '10px' }}>
       <Paper sx={{ p: 2 }} elevation={6}>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <div style={{ width: 'fit-content' }}>
             <Typography sx={{ textAlign: 'left' }} variant="h5">
-              Title: {post[0].title}
+              Title: {post[0]?.title}
             </Typography>
             <hr style={{ border: '1px solid #ccc' }} />
             <div style={{ minHeight: '100px' }}>
@@ -28,7 +26,7 @@ const FeedDetail = () => {
                 Message:
               </Typography>
               <Typography sx={{ textAlign: 'left' }} variant="body2">
-                {post[0].message}
+                {post[0]?.message}
               </Typography>
             </div>
             <hr style={{ border: '1px solid #ccc' }} />
@@ -44,11 +42,12 @@ const FeedDetail = () => {
                 backgroundColor: '#ccc'
               }}
             >
-              <img src={post[0].selectedFile} alt={post[0].title} />
+              <img src={post[0]?.selectedFile} alt={post[0]?.title} />
             </div>
             <div>
               <Typography sx={{ textAlign: 'left' }} variant="subtitle1">
-                Created by: {post[0].name} {moment(post[0].createdAt).fromNow()}
+                Created by: {post[0]?.name}{' '}
+                {moment(post[0]?.createdAt).fromNow()}
               </Typography>
               <Typography sx={{}} variant="subtitle1"></Typography>
             </div>
@@ -60,7 +59,7 @@ const FeedDetail = () => {
                   justifyContent: 'center'
                 }}
               >
-                {post[0].likes.length > 0 ? (
+                {post[0]?.likes.length > 0 ? (
                   <>
                     <AiFillHeart /> &nbsp;
                     {post[0]?.likes.length}
@@ -72,13 +71,15 @@ const FeedDetail = () => {
                 )}
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap-reverse' }}>
-                {post[0].tags.map((tag) => (
-                  <Typography variant="body1">#{tag} &nbsp;</Typography>
+                {post[0]?.tags.map((tag, idx) => (
+                  <Typography key={idx} variant="body1">
+                    #{tag} &nbsp;
+                  </Typography>
                 ))}
               </div>
             </div>
           </div>
-          <Comments />
+          <Comments post={post} />
         </div>
       </Paper>
     </div>
