@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Typography, TextField, Button } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { submitComment } from '../../actions/post'
 
 const Comments = ({ post }) => {

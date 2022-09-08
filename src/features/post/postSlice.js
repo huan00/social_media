@@ -14,6 +14,9 @@ export const postSlice = createSlice({
     getPosts: (state, action) => {
       return { ...state, posts: [...action.payload] }
     },
+    getAPost: (state, action) => {
+      return { ...state, posts: action.payload }
+    },
     filterMyPosts: (state, action) => {
       return {
         ...state,
@@ -62,6 +65,7 @@ export const postSlice = createSlice({
 export const {
   newPost,
   getPosts,
+  getAPost,
   like,
   deleteAPost,
   updateAPost,

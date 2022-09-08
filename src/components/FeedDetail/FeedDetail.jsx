@@ -1,16 +1,62 @@
 import { Paper, Typography } from '@mui/material'
-import React from 'react'
+import { useState } from 'react'
 import Comments from './Comment'
-import { AiOutlineHeart, AiFillHeart, AiOutlineEdit } from 'react-icons/ai'
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai'
 import { useParams } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import moment from 'moment'
+import { useEffect } from 'react'
+import { fetchPost, likePost } from '../../actions/post'
 
 const FeedDetail = () => {
+  const dispatch = useDispatch()
   const { id } = useParams()
-  const post = useSelector((state) =>
-    state.post.posts.filter((post) => post._id === id)
+  let post = useSelector((state) =>
+    state?.post?.posts?.filter((post) => post._id === id)
   )
+  const profile = JSON.parse(localStorage.getItem('profile'))
+  const profileId = profile?.data.sub || profile?.data._id
+  const [likes, setLikes] = useState(post[0]?.likes)
+  const likedPost = likes?.find((like) => like === profileId)
+
+  useEffect(() => {
+    if (post.length === 0) dispatch(fetchPost())
+  }, [])
+
+  useEffect(() => {
+    setLikes(post[0]?.likes)
+  }, [post[0]])
+
+  const LikeCounts = () => {
+    if (likes?.length > 0) {
+      return likedPost ? (
+        <>
+          <AiFillHeart /> &nbsp; {likes.length}
+        </>
+      ) : (
+        <>
+          <AiOutlineHeart /> &nbsp;{likes.length}
+        </>
+      )
+    }
+    return (
+      <>
+        <AiOutlineHeart /> &nbsp;{'0'}
+      </>
+    )
+  }
+
+  const handleLikes = () => {
+    if (!profile) {
+      return
+    }
+    dispatch(likePost(post[0]._id))
+    if (likedPost) {
+      setLikes(likes.filter((id) => id !== profileId))
+    } else {
+      setLikes([...likes, profileId])
+    }
+  }
 
   return (
     <div style={{ marginTop: '10px' }}>
@@ -52,24 +98,18 @@ const FeedDetail = () => {
               <Typography sx={{}} variant="subtitle1"></Typography>
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
-              >
-                {post[0]?.likes.length > 0 ? (
-                  <>
-                    <AiFillHeart /> &nbsp;
-                    {post[0]?.likes.length}
-                  </>
-                ) : (
-                  <>
-                    <AiOutlineHeart /> 0
-                  </>
-                )}
-              </div>
+              {likes && (
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={handleLikes}
+                >
+                  {LikeCounts()}
+                </div>
+              )}
               <div style={{ display: 'flex', flexWrap: 'wrap-reverse' }}>
                 {post[0]?.tags.map((tag, idx) => (
                   <Typography key={idx} variant="body1">
@@ -79,7 +119,7 @@ const FeedDetail = () => {
               </div>
             </div>
           </div>
-          <Comments post={post} />
+          {post.length > 0 && <Comments post={post} />}
         </div>
       </Paper>
     </div>

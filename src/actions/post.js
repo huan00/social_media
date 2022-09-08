@@ -2,6 +2,7 @@ import * as api from '../api'
 import {
   newPost,
   getPosts,
+  getAPost,
   like,
   deleteAPost,
   updateAPost,
@@ -22,6 +23,17 @@ export const fetchPost = () => async (dispatch) => {
   try {
     const { data } = await api.getPosts()
     dispatch(getPosts(data))
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const fetchAPost = (id) => async (dispatch) => {
+  try {
+    const { data } = await api.getAPost(id)
+    console.log(data)
+    dispatch(getAPost(data))
+    return data
   } catch (error) {
     console.log(error)
   }
