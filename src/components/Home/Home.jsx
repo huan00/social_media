@@ -22,7 +22,7 @@ const Home = () => {
   })
 
   useEffect(() => {
-    dispatch(fetchPost())
+    if (location.pathname === '/') dispatch(fetchPost())
   }, [location])
 
   useEffect(() => {

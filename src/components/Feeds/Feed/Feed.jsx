@@ -90,8 +90,12 @@ const Feed = ({ post, handleUpdate }) => {
     } else return true
   }
 
+  const openFeedDetail = () => {
+    navigate(`/post/${post._id}`)
+  }
+
   return (
-    <Card sx={{ width: 300, height: 'fit-content', m: 1 }} raised elevation={6}>
+    <Card sx={{ width: 250, height: 'fit-content', m: 1 }} raised elevation={6}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="post">
@@ -128,11 +132,16 @@ const Feed = ({ post, handleUpdate }) => {
       />
       <div style={{ position: 'relative' }}>
         <CardMedia
+          onClick={openFeedDetail}
           component="img"
           height="195"
           image={post.selectedFile}
           alt={post.title}
-          sx={{ objectFit: 'contain', backgroundColor: '#ccc' }}
+          sx={{
+            objectFit: 'contain',
+            backgroundColor: '#ccc',
+            cursor: 'pointer'
+          }}
         />
         <Typography
           sx={{
