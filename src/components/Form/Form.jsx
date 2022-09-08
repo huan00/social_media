@@ -6,7 +6,7 @@ import { createPost, updatePost, getSearchedPosts } from '../../actions/post'
 import { useNavigate } from 'react-router-dom'
 import ChipInput from 'material-ui-chip-input'
 
-const Form = ({ profile, formInput, setFormInput }) => {
+const Form = ({ profile, formInput, setFormInput, handleClear }) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [search, setSearch] = useState({
@@ -27,7 +27,11 @@ const Form = ({ profile, formInput, setFormInput }) => {
         createPost(
           {
             ...formInput,
-            name: `${profile?.data?.firstName} ${profile?.data?.lastName} `
+            name: `${
+              profile?.data._id
+                ? `${profile?.data?.firstName} ${profile?.data?.lastName}`
+                : `${profile?.data.name}`
+            }`
           },
           navigate
         )
@@ -38,7 +42,7 @@ const Form = ({ profile, formInput, setFormInput }) => {
 
   const handleSearch = (e) => {
     e.preventDefault()
-    if (search.feed.trim() || search.tags) {
+    if (search.feed.trim() || search.tags.length > 0) {
       const searchData = { ...search, tags: search.tags.join(',') }
       dispatch(getSearchedPosts(searchData))
       navigate(
@@ -46,6 +50,8 @@ const Form = ({ profile, formInput, setFormInput }) => {
           search.feed || 'none'
         }&tags=${search.tags.join(',')}`
       )
+    } else {
+      navigate('/')
     }
     setSearch({
       feed: '',
@@ -108,28 +114,33 @@ const Form = ({ profile, formInput, setFormInput }) => {
             <TextField
               name="title"
               variant="outlined"
-              label="title"
+              label="Title"
               fullWidth
-              value={formInput.title}
+              value={formInput?.title}
               onChange={handleInput}
             />
             <TextField
               name="message"
               sx={{ my: 1 }}
               variant="outlined"
-              label="message"
+              label="Message"
               fullWidth
-              value={formInput.message}
+              value={formInput?.message}
               onChange={handleInput}
             />
-            <TextField
-              name="tags"
+            <ChipInput
               variant="outlined"
-              label="tags"
+              label="Tags"
               fullWidth
-              value={formInput.tags}
-              onChange={(e) =>
-                setFormInput({ ...formInput, tags: e.target.value.split(',') })
+              value={formInput?.tags}
+              onAdd={(tag) =>
+                setFormInput({ ...formInput, tags: [...formInput.tags, tag] })
+              }
+              onDelete={(deleteTag) =>
+                setFormInput({
+                  ...formInput,
+                  tags: formInput.tags.filter((tag) => tag !== deleteTag)
+                })
               }
             />
             <div
@@ -158,7 +169,12 @@ const Form = ({ profile, formInput, setFormInput }) => {
             >
               SUBMIT
             </Button>
-            <Button color="error" variant="contained" fullWidth>
+            <Button
+              color="error"
+              variant="contained"
+              fullWidth
+              onClick={handleClear}
+            >
               Clear
             </Button>
           </form>

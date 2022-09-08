@@ -7,6 +7,7 @@ import { styles } from './styles'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { removeProfile } from '../../features/auth/authSlice'
+import { filterMyPosts } from '../../features/post/postSlice'
 
 const NavBar = () => {
   const dispatch = useDispatch()
@@ -33,9 +34,15 @@ const NavBar = () => {
     setProfile(null)
   }
 
+  const handleClickAvatar = () => {
+    if (profile.data.sub) {
+      dispatch(filterMyPosts(profile.data.sub))
+    } else dispatch(filterMyPosts(profile.data._id))
+  }
+
   return (
     <AppBar sx={styles.appBar} position="static" color="inherit">
-      <Box sx={styles.brandContainer}>
+      <Box sx={styles.brandContainer} component={Link} to="/">
         <Typography color="error" variant="h4">
           Hz Media
         </Typography>
@@ -61,11 +68,16 @@ const NavBar = () => {
             >
               <Avatar
                 alt={profile?.name ? profile?.name : profile?.data?.firstName}
-                src={profile?.picture}
+                src={profile?.data?.picture}
+                onClick={handleClickAvatar}
+                sx={{ cursor: 'pointer' }}
               >
                 {profile?.data?.firstName?.charAt(0)}
               </Avatar>
-              <Typography>
+              <Typography
+                sx={{ cursor: 'pointer' }}
+                onClick={handleClickAvatar}
+              >
                 {profile?.data?.name
                   ? profile?.data?.name
                   : `${profile?.data?.firstName} ${profile?.data?.lastName}`}

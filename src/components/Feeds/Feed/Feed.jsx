@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Avatar,
   Card,
@@ -20,14 +19,24 @@ import { Box } from '@mui/system'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { likePost, deletePost } from '../../../actions/post'
+import { useNavigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const Feed = ({ post, handleUpdate }) => {
+  const navigate = useNavigate()
+  const location = useLocation()
   const dispatch = useDispatch()
-  const user = JSON.parse(localStorage.getItem('profile'))
-  const userId = user?.data.sub || user?.data._id
+  const [profile, setProfile] = useState(
+    JSON.parse(localStorage.getItem('profile'))
+  )
+  const profileId = profile?.data.sub || profile?.data._id
   const [likes, setLikes] = useState(post?.likes)
-  const likedPost = likes.find((like) => like === userId)
+  const likedPost = likes.find((like) => like === profileId)
   const [anchorEl, setAnchorEl] = useState(null)
+
+  useEffect(() => {
+    setProfile(JSON.parse(localStorage.getItem('profile')))
+  }, [location])
 
   const LikeCounts = () => {
     if (likes.length > 0) {
@@ -49,14 +58,14 @@ const Feed = ({ post, handleUpdate }) => {
   }
 
   const handleLikes = () => {
-    if (!user) {
+    if (!profile) {
       return
     }
     dispatch(likePost(post._id))
     if (likedPost) {
-      setLikes(likes.filter((id) => id !== userId))
+      setLikes(likes.filter((id) => id !== profileId))
     } else {
-      setLikes([...likes, userId])
+      setLikes([...likes, profileId])
     }
   }
 
@@ -72,8 +81,17 @@ const Feed = ({ post, handleUpdate }) => {
     dispatch(deletePost(post._id))
   }
 
+  const handleDisable = () => {
+    if (
+      post.creator === profile?.data?.sub ||
+      post.creator === profile?.data?._id
+    ) {
+      return false
+    } else return true
+  }
+
   return (
-    <Card sx={{ width: 300, height: '100%', m: 1 }} raised elevation={6}>
+    <Card sx={{ width: 300, height: 'fit-content', m: 1 }} raised elevation={6}>
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="post">
@@ -82,7 +100,12 @@ const Feed = ({ post, handleUpdate }) => {
           </Avatar>
         }
         action={
-          <IconButton color="secondary" aria-label="setting" onClick={openMenu}>
+          <IconButton
+            color="secondary"
+            aria-label="setting"
+            onClick={openMenu}
+            disabled={profile ? handleDisable() : true}
+          >
             <BiDotsVertical />
             <Menu
               id="update-delete"
@@ -125,7 +148,9 @@ const Feed = ({ post, handleUpdate }) => {
         </Typography>
       </div>
       <CardContent>
-        <Typography variant="body2">{post.message}</Typography>
+        <Typography height={20} variant="body2">
+          {post.message}
+        </Typography>
       </CardContent>
 
       <CardActions

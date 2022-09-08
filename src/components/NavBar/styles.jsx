@@ -14,7 +14,8 @@ export const styles = {
     height: '50px',
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    textDecoration: 'none'
   },
   loginStatus: {
     // width: 'sm'

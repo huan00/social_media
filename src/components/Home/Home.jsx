@@ -1,11 +1,15 @@
 import { Container } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+import { fetchPost } from '../../actions/post'
 
 import Feeds from '../Feeds/Feeds'
 import Form from '../Form/Form'
 
 const Home = () => {
+  const location = useLocation()
+  const dispatch = useDispatch()
   const { posts } = useSelector((state) => state.post)
   const [profile, setProfile] = useState(
     JSON.parse(localStorage.getItem('profile'))
@@ -13,13 +17,25 @@ const Home = () => {
   const [formInput, setFormInput] = useState({
     title: '',
     message: '',
-    tags: '',
+    tags: [],
     selectedFile: ''
   })
+
+  useEffect(() => {
+    dispatch(fetchPost())
+  }, [location])
+
+  useEffect(() => {
+    setProfile(JSON.parse(localStorage.getItem('profile')))
+  }, [location])
 
   const handleUpdate = (id) => {
     const updatePost = posts.filter((post) => post._id === id)
     setFormInput(...updatePost)
+  }
+
+  const handleClear = () => {
+    setFormInput({ title: '', message: '', tags: '', selectedFile: '' })
   }
 
   return (
@@ -38,6 +54,7 @@ const Home = () => {
         handleUpdate={handleUpdate}
         formInput={formInput}
         setFormInput={setFormInput}
+        handleClear={handleClear}
       />
     </Container>
   )

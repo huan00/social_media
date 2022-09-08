@@ -14,6 +14,12 @@ export const postSlice = createSlice({
     getPosts: (state, action) => {
       return { ...state, posts: [...action.payload] }
     },
+    filterMyPosts: (state, action) => {
+      return {
+        ...state,
+        posts: state.posts.filter((post) => post.creator === action.payload)
+      }
+    },
     like: (state, action) => {
       return {
         ...state,
@@ -51,7 +57,9 @@ export const {
   like,
   deleteAPost,
   updateAPost,
-  searchedPosts
+  searchedPosts,
+
+  filterMyPosts
 } = postSlice.actions
 
 export default postSlice.reducer

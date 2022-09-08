@@ -18,6 +18,7 @@ export const signIn = (data) => API.post(`user/signin`, data)
 
 export const createPost = (post) => API.post('post/', post)
 export const getPosts = () => API.get('post/')
+export const getMyPosts = () => API.get('post/myposts')
 export const likePost = (id) => API.put(`post/${id}/likepost`)
 export const deletePost = (id) => API.delete(`post/${id}/deletepost`)
 export const updatePost = (post) => API.put(`post/${post._id}/updatepost`, post)

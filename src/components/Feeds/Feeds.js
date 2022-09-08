@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchPost } from '../../actions/post'
+import { useState } from 'react'
 import Feed from './Feed/Feed'
+import { useLocation } from 'react-router-dom'
 
 const Feeds = ({ handleUpdate }) => {
+  const location = useLocation()
   const dispatch = useDispatch()
-  const { posts } = useSelector((state) => state.post)
+  const [profile, setProfile] = useState(
+    JSON.parse(localStorage.getItem('profile'))
+  )
 
-  useEffect(() => {
-    dispatch(fetchPost())
-  }, [])
+  const { posts } = useSelector((state) => state.post)
 
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
