@@ -42,7 +42,7 @@ const CreateForm = ({ profile, formInput, setFormInput, handleClear }) => {
       <Paper sx={{ mt: 5, width: 350, height: 'fit-content' }} elevation={6}>
         <div>
           <Typography fontSize={20} sx={{ pt: 2 }}>
-            Create a Post
+            {formInput._id ? 'Update Post' : 'Create a Post'}
           </Typography>
         </div>
         <form
@@ -109,7 +109,7 @@ const CreateForm = ({ profile, formInput, setFormInput, handleClear }) => {
             fullWidth
             sx={{ my: 1 }}
           >
-            SUBMIT
+            {formInput._id ? 'UPDATE' : 'SUBMIT'}
           </Button>
           <Button
             color="error"
