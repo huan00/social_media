@@ -22,12 +22,12 @@ const CreateForm = ({ profile, formInput, setFormInput, handleClear }) => {
       dispatch(
         createPost(
           {
-            ...formInput
-            // name: `${
-            //   profile?.data._id
-            //     ? `${profile?.data?.firstName} ${profile?.data?.lastName}`
-            //     : `${profile?.data.name}`
-            // }`
+            ...formInput,
+            name: `${
+              profile?.data._id
+                ? `${profile?.data?.firstName} ${profile?.data?.lastName}`
+                : `${profile?.data.name}`
+            }`
           },
           navigate
         )
