@@ -59,9 +59,31 @@ const FeedDetail = () => {
   }
 
   return (
-    <div style={{ marginTop: '10px' }}>
-      <Paper sx={{ p: 2 }} elevation={6}>
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+    <div
+      style={{
+        marginTop: '10px'
+      }}
+    >
+      <Paper
+        sx={{
+          p: 2,
+          display: 'flex',
+          height: 'fit-content',
+          flexDirection: 'column',
+          alignItems: 'center',
+          flexWrap: 'wrap'
+        }}
+        elevation={6}
+      >
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            maxWidth: '800px'
+          }}
+        >
           <div style={{ width: 'fit-content' }}>
             <Typography sx={{ textAlign: 'left' }} variant="h5">
               Title: {post[0]?.title}
@@ -82,7 +104,6 @@ const FeedDetail = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 width: '100%',
-                // height: '400px',
                 margin: '10px 0',
                 borderRadius: '10px',
                 backgroundColor: '#ccc'

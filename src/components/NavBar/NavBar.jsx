@@ -43,7 +43,11 @@ const NavBar = () => {
   return (
     <AppBar sx={styles.appBar} position="static" color="inherit">
       <Box sx={styles.brandContainer} component={Link} to="/">
-        <Typography color="error" variant="h4">
+        <Typography
+          color="error"
+          sx={{ typography: { xs: 'caption', md: 'h6', lg: 'h4' } }}
+          variant="h4"
+        >
           Hz Media
         </Typography>
         <img src={logo} alt="logo" style={{ width: '50px' }} />

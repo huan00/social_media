@@ -26,6 +26,7 @@ const Comments = ({ post }) => {
       style={{
         position: 'relative',
         width: '100%',
+        height: window.innerHeight * 0.28,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
@@ -41,7 +42,7 @@ const Comments = ({ post }) => {
           ))}
         </div>
       </div>
-      <div style={{ position: 'absolute', bottom: '0', width: '80%' }}>
+      <div style={{ position: 'absolute', bottom: '0', width: '100%' }}>
         <Typography textAlign="left" variant="h6">
           Write a Comment:
         </Typography>

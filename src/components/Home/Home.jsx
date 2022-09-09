@@ -1,4 +1,4 @@
-import { Container } from '@mui/material'
+import { Container, Paper } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
@@ -42,26 +42,46 @@ const Home = () => {
   return (
     <Container
       sx={{
+        // width: window.innerWidth * 0.9,
         mt: 2,
         display: 'flex',
+        flexWrap: 'wrap',
         justifyContent: 'space-between'
       }}
     >
-      <div>
-        <Feeds handleUpdate={handleUpdate} />
-      </div>
-      <div>
-        <Form />
-        {profile && (
-          <CreateForm
-            profile={profile}
-            handleUpdate={handleUpdate}
-            formInput={formInput}
-            setFormInput={setFormInput}
-            handleClear={handleClear}
-          />
-        )}
-      </div>
+      <Paper
+        elevation={6}
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between'
+        }}
+      >
+        <div style={{ maxWidth: '60%' }}>
+          <Feeds handleUpdate={handleUpdate} />
+        </div>
+        <div
+          style={{
+            width: 'fit-content',
+            display: 'flex',
+            flexDirection: 'column',
+
+            alignItems: 'center',
+            margin: '8px auto'
+          }}
+        >
+          <Form />
+          {profile && (
+            <CreateForm
+              profile={profile}
+              handleUpdate={handleUpdate}
+              formInput={formInput}
+              setFormInput={setFormInput}
+              handleClear={handleClear}
+            />
+          )}
+        </div>
+      </Paper>
     </Container>
   )
 }

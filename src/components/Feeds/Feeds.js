@@ -13,7 +13,13 @@ const Feeds = ({ handleUpdate }) => {
   const { posts } = useSelector((state) => state.post)
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-evenly'
+      }}
+    >
       {posts &&
         posts.map((post) => (
           <Feed post={post} key={post._id} handleUpdate={handleUpdate} />
