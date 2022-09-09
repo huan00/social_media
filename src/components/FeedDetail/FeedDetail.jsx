@@ -81,14 +81,18 @@ const FeedDetail = () => {
               style={{
                 display: 'flex',
                 justifyContent: 'center',
-                width: '400px',
-                height: '400px',
+                width: '100%',
+                // height: '400px',
                 margin: '10px 0',
                 borderRadius: '10px',
                 backgroundColor: '#ccc'
               }}
             >
-              <img src={post[0]?.selectedFile} alt={post[0]?.title} />
+              <img
+                src={post[0]?.selectedFile}
+                alt={post[0]?.title}
+                width="100%"
+              />
             </div>
             <div>
               <Typography sx={{ textAlign: 'left' }} variant="subtitle1">
