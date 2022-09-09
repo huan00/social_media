@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom'
 import { fetchPost } from '../../actions/post'
 
 import Feeds from '../Feeds/Feeds'
+import CreateForm from '../Form/CreateForm'
 import Form from '../Form/Form'
 
 const Home = () => {
@@ -49,13 +50,24 @@ const Home = () => {
       <div>
         <Feeds handleUpdate={handleUpdate} />
       </div>
-      <Form
-        profile={profile}
-        handleUpdate={handleUpdate}
-        formInput={formInput}
-        setFormInput={setFormInput}
-        handleClear={handleClear}
-      />
+      <div>
+        <Form
+          profile={profile}
+          handleUpdate={handleUpdate}
+          formInput={formInput}
+          setFormInput={setFormInput}
+          handleClear={handleClear}
+        />
+        {profile && (
+          <CreateForm
+            profile={profile}
+            handleUpdate={handleUpdate}
+            formInput={formInput}
+            setFormInput={setFormInput}
+            handleClear={handleClear}
+          />
+        )}
+      </div>
     </Container>
   )
 }

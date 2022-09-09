@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const API = axios.create({
-  baseURL: 'https://huan-social-app.herokuapp.com/'
-  // 'http://localhost:3003'
+  // baseURL: 'https://huan-social-app.herokuapp.com/'
+  baseURL: 'http://localhost:3003'
 })
 
 API.interceptors.request.use((req) => {

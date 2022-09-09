@@ -16,5 +16,7 @@ export const signIn = (inputData, navigate) => async (dispatch) => {
     const { data } = await api.signIn(inputData)
     dispatch(login(data))
     navigate('/')
-  } catch (error) {}
+  } catch (error) {
+    console.log(error)
+  }
 }
