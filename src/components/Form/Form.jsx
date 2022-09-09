@@ -1,11 +1,11 @@
 import { Button, Paper, TextField } from '@mui/material'
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { createPost, updatePost, getSearchedPosts } from '../../actions/post'
+import { getSearchedPosts } from '../../actions/post'
 import { useNavigate } from 'react-router-dom'
 import { MuiChipsInput } from 'mui-chips-input'
 
-const Form = ({ profile, formInput, setFormInput }) => {
+const Form = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const [search, setSearch] = useState({

@@ -51,13 +51,7 @@ const Home = () => {
         <Feeds handleUpdate={handleUpdate} />
       </div>
       <div>
-        <Form
-          profile={profile}
-          handleUpdate={handleUpdate}
-          formInput={formInput}
-          setFormInput={setFormInput}
-          handleClear={handleClear}
-        />
+        <Form />
         {profile && (
           <CreateForm
             profile={profile}
