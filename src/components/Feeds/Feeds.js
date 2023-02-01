@@ -17,7 +17,7 @@ const Feeds = ({ handleUpdate }) => {
     <Box
       sx={{
         display: 'flex',
-        // width: { xs: window.innerWidth * 0.9, md: 600, lg: 300 },
+        width: { xs: window.innerWidth, md: 600, lg: 800 },
         flexWrap: 'wrap',
         justifyContent: 'space-evenly'
       }}

@@ -44,14 +44,14 @@ const Home = () => {
       sx={{
         mt: 2,
         display: 'flex',
-        flexWrap: 'wrap',
+        flexWrap: 'nowrap',
         justifyContent: 'space-between'
       }}
     >
       <Paper
         elevation={6}
         sx={{
-          width: window.innerWidth * 0.9,
+          width: '100%',
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'space-between'
@@ -65,8 +65,8 @@ const Home = () => {
             width: 'fit-content',
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
-            margin: '8px auto'
+            alignItems: 'right',
+            margin: '8px 0'
           }}
         >
           <Form />
