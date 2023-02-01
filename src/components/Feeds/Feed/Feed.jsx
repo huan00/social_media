@@ -95,7 +95,15 @@ const Feed = ({ post, handleUpdate }) => {
   }
 
   return (
-    <Card sx={{ width: 250, height: 'fit-content', m: 1 }} raised elevation={6}>
+    <Card
+      sx={{
+        width: { xs: window.innerWidth, md: 250, lg: 300 },
+        height: 'fit-content',
+        m: 1
+      }}
+      raised
+      elevation={6}
+    >
       <CardHeader
         avatar={
           <Avatar sx={{ bgcolor: red[500] }} aria-label="post">

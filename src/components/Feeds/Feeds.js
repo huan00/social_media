@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useState } from 'react'
 import Feed from './Feed/Feed'
 import { useLocation } from 'react-router-dom'
+import { Box } from '@mui/material'
 
 const Feeds = ({ handleUpdate }) => {
   const location = useLocation()
@@ -13,9 +14,10 @@ const Feeds = ({ handleUpdate }) => {
   const { posts } = useSelector((state) => state.post)
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: 'flex',
+        // width: { xs: window.innerWidth * 0.9, md: 600, lg: 300 },
         flexWrap: 'wrap',
         justifyContent: 'space-evenly'
       }}
@@ -24,7 +26,7 @@ const Feeds = ({ handleUpdate }) => {
         posts.map((post) => (
           <Feed post={post} key={post._id} handleUpdate={handleUpdate} />
         ))}
-    </div>
+    </Box>
   )
 }
 

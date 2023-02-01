@@ -42,7 +42,6 @@ const Home = () => {
   return (
     <Container
       sx={{
-        // width: window.innerWidth * 0.9,
         mt: 2,
         display: 'flex',
         flexWrap: 'wrap',
@@ -52,12 +51,13 @@ const Home = () => {
       <Paper
         elevation={6}
         sx={{
+          width: window.innerWidth * 0.9,
           display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'space-between'
         }}
       >
-        <div style={{ maxWidth: '60%' }}>
+        <div>
           <Feeds handleUpdate={handleUpdate} />
         </div>
         <div
@@ -65,7 +65,6 @@ const Home = () => {
             width: 'fit-content',
             display: 'flex',
             flexDirection: 'column',
-
             alignItems: 'center',
             margin: '8px auto'
           }}
