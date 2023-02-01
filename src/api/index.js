@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const API = axios.create({
-  baseURL: 'https://huan-social-app.herokuapp.com/'
+  baseURL: 'https://socialmedia-werh.onrender.com'
   // baseURL: 'http://localhost:3003'
 })
 
