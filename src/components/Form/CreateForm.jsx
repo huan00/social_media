@@ -36,7 +36,6 @@ const CreateForm = ({ profile, formInput, setFormInput, handleClear }) => {
     setFormInput({ title: '', message: '', tags: '', selectedFile: '' })
   }
 
-  console.log(formInput)
   return (
     <Box>
       <Paper sx={{ mt: 5, width: 350, height: 'fit-content' }} elevation={6}>
